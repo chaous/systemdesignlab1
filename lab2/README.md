@@ -20,26 +20,28 @@
 
 ## Установка и запуск
 
-1. Склонируйте репозиторий:
+### 1. Клонируйте репозиторий
    ```bash
    git clone https://github.com/chaous/systemdesignlab1.git
    cd lab2
    ```
 
-2. Установите виртуальное окружение и активируйте его:
+### 2. Создайте виртуальное окружение и активируйте его
    ```bash
    python3 -m venv venv
    source venv/bin/activate   # Для Windows: venv\Scripts\activate
    ```
 
-3. Установите зависимости:
+### 3. Установите зависимости
+   Убедитесь, что файл `requirements.txt` присутствует в корне папки `lab2`. Установите зависимости командой:
    ```bash
    pip install -r requirements.txt
    ```
 
-4. Запустите сервер:
+### 4. Запустите сервер
+   Используйте правильное имя файла `lab2_system_design.py`:
    ```bash
-   uvicorn main:app --reload
+   uvicorn lab2_system_design:app --reload
    ```
 
 5. Откройте браузер и перейдите по ссылке:
