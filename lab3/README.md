@@ -31,7 +31,7 @@
    cd lab3
    ```
 
-2. Установите виртуальное окружение и активируйте его:
+2. Создайте виртуальное окружение и активируйте его:
    ```bash
    python3 -m venv venv
    source venv/bin/activate   # Для Windows: venv\Scripts\activate
@@ -47,6 +47,8 @@
    ```python
    DATABASE_URL = "postgresql://<user>:<password>@localhost/project_management"
    ```
+   - `<user>`: Имя пользователя базы данных (например, `postgres`).
+   - `<password>`: Пароль пользователя PostgreSQL.
 
 2. Запустите скрипт инициализации базы данных (`db_init.sql`) для создания таблиц и добавления тестовых данных:
    ```sql
@@ -95,6 +97,39 @@
 
 2. Откройте браузер и перейдите по ссылке:
    - [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) для просмотра и тестирования API.
+
+---
+
+## Решение проблем с подключением к PostgreSQL
+
+Если вы получаете ошибку `connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused`, выполните следующие шаги:
+
+1. **Убедитесь, что PostgreSQL запущен**:
+   - На MacOS с Homebrew можно запустить PostgreSQL командой:
+     ```bash
+     brew services start postgresql
+     ```
+   - Для других операционных систем используйте команду запуска PostgreSQL в зависимости от способа установки.
+
+2. **Проверьте параметры подключения** в `main.py`, убедившись, что они верны:
+   ```python
+   DATABASE_URL = "postgresql://<user>:<password>@localhost/project_management"
+   ```
+
+3. **Проверьте, создана ли база данных**:
+   - Подключитесь к PostgreSQL:
+     ```bash
+     psql -U <user>
+     ```
+   - Создайте базу данных `project_management`, если её нет:
+     ```sql
+     CREATE DATABASE project_management;
+     ```
+
+После выполнения этих шагов перезапустите сервер FastAPI командой:
+```bash
+uvicorn main:app --reload
+```
 
 ---
 
