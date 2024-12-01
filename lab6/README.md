@@ -32,16 +32,16 @@
 ## Запуск проекта
 
 ### 1. Клонирование репозитория:
-\`\`\`bash
+```bash
 git clone https://github.com/chaous/python.git
 cd python/lab6
-\`\`\`
+```
 
 ### 2. Запуск контейнеров:
-\`\`\`bash
+```bash
 docker-compose down --volumes
 docker-compose up --build
-\`\`\`
+```
 
 ### 3. Тестовые данные:
 - При первом запуске базы данных автоматически инициализируются тестовыми данными.
@@ -53,68 +53,68 @@ docker-compose up --build
 
 ### Пользователи:
 1. **Создать пользователя**:
-   \`\`\`http
+   ```http
    POST /users/
-   \`\`\`
+   ```
    **Пример запроса**:
-   \`\`\`json
+   ```json
    {
        "username": "testuser",
        "email": "testuser@example.com"
    }
-   \`\`\`
+   ```
 
 2. **Получить список пользователей**:
-   \`\`\`http
+   ```http
    GET /users/
-   \`\`\`
+   ```
 
 3. **Поиск пользователя по логину**:
-   \`\`\`http
+   ```http
    GET /users/{username}
-   \`\`\`
+   ```
 
 ### Проекты:
 1. **Создать проект**:
-   \`\`\`http
+   ```http
    POST /projects/
-   \`\`\`
+   ```
    **Пример запроса**:
-   \`\`\`json
+   ```json
    {
        "name": "Test Project",
        "description": "This is a test project"
    }
-   \`\`\`
+   ```
 
 2. **Получить список проектов**:
-   \`\`\`http
+   ```http
    GET /projects/
-   \`\`\`
+   ```
 
 3. **Поиск проекта по названию**:
-   \`\`\`http
+   ```http
    GET /projects/{name}
-   \`\`\`
+   ```
 
 ### Задачи:
 1. **Создать задачу в проекте**:
-   \`\`\`http
+   ```http
    POST /tasks/
-   \`\`\`
+   ```
    **Пример запроса**:
-   \`\`\`json
+   ```json
    {
        "project_id": 1,
        "title": "Test Task",
        "description": "This is a test task"
    }
-   \`\`\`
+   ```
 
 2. **Получить список задач в проекте**:
-   \`\`\`http
+   ```http
    GET /tasks/?project_id={project_id}
-   \`\`\`
+   ```
 
 ---
 
