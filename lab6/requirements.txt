@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+sqlalchemy
+psycopg2-binary
+pymongo
+redis
+python-jose[cryptography]
+passlib[bcrypt]
+confluent-kafka
+kafka-python
