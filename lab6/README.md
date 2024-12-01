@@ -33,8 +33,8 @@
 
 ### 1. Клонирование репозитория:
 ```bash
-git clone https://github.com/chaous/python.git
-cd python/lab6
+git clone https://github.com/chaous/systemdesignlab1.git
+cd systemdesignlab1/lab6
 ```
 
 ### 2. Запуск контейнеров:
@@ -159,5 +159,5 @@ docker-compose up --build
 
 ## Авторы
 
-- Репозиторий: [GitHub](https://github.com/chaous/python/tree/main/lab6)
+- Репозиторий: [GitHub](https://github.com/chaous/systemdesignlab1/edit/main/lab6/README.md)
 - Автор: Илья Рожков
