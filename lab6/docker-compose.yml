@@ -19,6 +19,18 @@ services:
     volumes:
       - .:/app
 
+  kafka_consumer:
+    build:
+      context: .
+    command: sh -c "sleep 10 && python kafka_consumer.py"
+    environment:
+      DATABASE_URL: postgresql://myuser:mypassword@postgres:5432/mydatabase
+      KAFKA_BROKER: kafka:9092
+    depends_on:
+      - kafka
+      - postgres
+    restart: always
+
   postgres:
     image: postgres:13
     environment:
