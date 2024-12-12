@@ -1,4 +1,3 @@
-
 # Лабораторная работа №6: Управление проектами
 
 ## Описание
@@ -8,7 +7,7 @@
 ### Основные возможности:
 1. **CQRS**:
    - Метод `POST` публикует сообщения о создании сущности в очередь **Kafka**.
-   - Отдельный сервис читает сообщения из очереди и записывает их в базу данных.
+   - Kafka consumer запускается в отдельном контейнере и автоматически записывает данные в PostgreSQL после получения события из очереди.
 2. **Сквозное чтение (Redis)**:
    - Данные одной из сущностей кэшируются в **Redis** для повышения производительности.
 3. **Аутентификация**:
@@ -32,13 +31,15 @@
 ## Запуск проекта
 
 ### 1. Клонирование репозитория:
-```bash
+```
+bash
 git clone https://github.com/chaous/systemdesignlab1.git
 cd systemdesignlab1/lab6
 ```
 
 ### 2. Запуск контейнеров:
-```bash
+```
+bash
 docker-compose down --volumes
 docker-compose up --build
 ```
@@ -53,68 +54,79 @@ docker-compose up --build
 
 ### Пользователи:
 1. **Создать пользователя**:
-   ```http
-   POST /users/
-   ```
-   **Пример запроса**:
-   ```json
-   {
-       "username": "testuser",
-       "email": "testuser@example.com"
-   }
-   ```
+```
+http
+POST /users/
+```
+**Пример запроса**:
+```
+json
+{
+    "username": "testuser",
+    "email": "testuser@example.com"
+}
+```
 
 2. **Получить список пользователей**:
-   ```http
-   GET /users/
-   ```
+```
+http
+GET /users/
+```
 
 3. **Поиск пользователя по логину**:
-   ```http
-   GET /users/{username}
-   ```
+```
+http
+GET /users/{username}
+```
 
 ### Проекты:
 1. **Создать проект**:
-   ```http
-   POST /projects/
-   ```
-   **Пример запроса**:
-   ```json
-   {
-       "name": "Test Project",
-       "description": "This is a test project"
-   }
-   ```
+```
+http
+POST /projects/
+```
+**Пример запроса**:
+```
+json
+{
+    "name": "Test Project",
+    "description": "This is a test project"
+}
+```
 
 2. **Получить список проектов**:
-   ```http
-   GET /projects/
-   ```
+```
+http
+GET /projects/
+```
 
 3. **Поиск проекта по названию**:
-   ```http
-   GET /projects/{name}
-   ```
+```
+http
+GET /projects/{name}
+```
 
 ### Задачи:
 1. **Создать задачу в проекте**:
-   ```http
-   POST /tasks/
-   ```
-   **Пример запроса**:
-   ```json
-   {
-       "project_id": 1,
-       "title": "Test Task",
-       "description": "This is a test task"
-   }
-   ```
+```
+http
+POST /tasks/
+```
+**Пример запроса**:
+```
+json
+{
+    "project_id": 1,
+    "title": "Test Task",
+    "description": "This is a test task"
+}
+```
 
 2. **Получить список задач в проекте**:
-   ```http
-   GET /tasks/?project_id={project_id}
-   ```
+```
+http
+GET /tasks/?project_id={project_id}
+```
 
 ---
 
@@ -125,7 +137,7 @@ docker-compose up --build
 - Сообщение содержит информацию о задаче (название, описание, проект).
 
 ### Обработка сообщений:
-- Отдельный сервис читает сообщения из очереди и записывает задачи в базу данных **PostgreSQL**.
+- Kafka consumer запускается в отдельном контейнере и обрабатывает сообщения, записывая задачи в базу данных **PostgreSQL**.
 
 ---
 
@@ -133,19 +145,48 @@ docker-compose up --build
 
 - Данные о проектах кэшируются в **Redis**.
 - Если данные не найдены в кэше, они извлекаются из **PostgreSQL**, сохраняются в **Redis**, и затем возвращаются пользователю.
+- Проверить содержимое кэша можно с помощью команды:
+```
+bash
+docker exec -it redis redis-cli
+GET project:{project_id}
+```
 
 ---
 
 ## MongoDB
 
 - Данные о задачах хранятся в **MongoDB**.
-- Реализовано создание и чтение документов через API.
+- Примеры запросов:
+  - **Создание документа**:
+```
+http
+POST /mongo/
+```
+```
+json
+{
+    "key": "value"
+}
+```
+  - **Получение всех документов**:
+```
+http
+GET /mongo/
+```
+
+---
+
+## Swagger UI
+
+- Документация API доступна по адресу: `http://localhost:8000/docs`.
 
 ---
 
 ## Требования
 
-- Docker и Docker Compose.
+- Docker версии 20.10+.
+- Docker Compose версии 1.29+.
 - Python 3.10+ для локального тестирования (опционально).
 
 ---
@@ -159,5 +200,5 @@ docker-compose up --build
 
 ## Авторы
 
-- Репозиторий: [GitHub](https://github.com/chaous/systemdesignlab1/edit/main/lab6/README.md)
+- Репозиторий: [GitHub](https://github.com/chaous/systemdesignlab1/tree/main/lab6)
 - Автор: Илья Рожков
